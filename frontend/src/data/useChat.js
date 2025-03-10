@@ -48,6 +48,18 @@ export const useChat = create((set, get) => ({
     }
   },
 
+  deleteGroup: async (groupId) => {
+    try {
+      const res = await axiosInstance.delete(`/groups/${groupId}`);
+      set((state) => ({
+        groups: state.groups.filter((g) => g._id !== groupId),
+      }));
+    } catch (error) {
+      console.error("Failed to delete group in useChat:", error.response?.data);
+      throw error;
+    }
+  },
+
   updateGroup: async (groupId, name, memberIds, profilePic) => {
     try {
       const formData = new FormData();
@@ -71,7 +83,7 @@ export const useChat = create((set, get) => ({
       toast.error(error.response?.data?.message || "Failed to update group");
     }
   },
-
+  
   getMessages: async (chatId, isGroup = false) => {
     try {
       const endpoint = isGroup ? `/groups/${chatId}` : `/messages/${chatId}`;

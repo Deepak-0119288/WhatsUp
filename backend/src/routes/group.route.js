@@ -7,7 +7,8 @@ const {
   sendGroupMessage,
   getGroupMessages,
   updateGroup,
-  getUnreadGroupMessages
+  getUnreadGroupMessages,
+  deleteGroup,
 } = require("../controllers/group.controller");
 const upload = require("../lib/multerConfig");
 
@@ -17,6 +18,7 @@ router.post("/send/:groupId", authMiddleware, upload.single("image"), sendGroupM
 router.get("/:groupId", authMiddleware, getGroupMessages);
 router.put("/:groupId", authMiddleware, upload.single("profilePic"), updateGroup);
 router.get("/unread/:userId", authMiddleware, getUnreadGroupMessages); 
+router.delete("/:id", authMiddleware, deleteGroup);
 
 
 module.exports = router;

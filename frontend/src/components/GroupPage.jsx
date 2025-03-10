@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { useChat } from "../data/useChat";
 import { useAuth } from "../data/useAuth";
-import { FaUser, FaUsers, FaEdit } from "react-icons/fa";
-import { IoMdArrowBack, IoIosCheckmarkCircle, IoMdCheckmark  } from "react-icons/io";
+import { FaUser, FaUsers, FaEdit, FaTrash } from "react-icons/fa"; // Added FaTrash
+import {
+  IoMdArrowBack,
+  IoIosCheckmarkCircle,
+  IoMdCheckmark,
+} from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { Camera } from "lucide-react";
 import toast from "react-hot-toast";
@@ -10,8 +14,7 @@ import toast from "react-hot-toast";
 const BASE = import.meta.env.VITE_REACT_APP_SOCKET_URL;
 
 export default function Communities() {
-  const { createGroup, updateGroup, users, groups } =
-    useChat();
+  const { createGroup, updateGroup, deleteGroup, users, groups } = useChat(); // Added deleteGroup
   const { authUser } = useAuth();
 
   const [showGroupForm, setShowGroupForm] = useState(false);
@@ -34,7 +37,11 @@ export default function Communities() {
       toast.error("Group name and at least one member are required");
       return;
     }
-    console.log("Creating group with:", { groupName, selectedMembers, groupProfilePic });
+    console.log("Creating group with:", {
+      groupName,
+      selectedMembers,
+      groupProfilePic,
+    });
     createGroup(groupName, selectedMembers, groupProfilePic)
       .then(() => {
         console.log("Group created successfully");
@@ -51,9 +58,7 @@ export default function Communities() {
     setGroupName(group.name);
     setSelectedMembers(group.members.map((m) => m._id || m));
     setPreviewUrl(
-      group.profilePic
-        ? `${BASE}${group.profilePic}`
-        : "/avatar.png"
+      group.profilePic ? `${BASE}${group.profilePic}` : "/avatar.png"
     );
   };
 
@@ -74,6 +79,19 @@ export default function Communities() {
     } catch (error) {
       console.error("Error updating group:", error);
       toast.error("Failed to update group");
+    }
+  };
+
+  const handleDeleteGroup = async () => {
+    if (!editGroup) return;
+    try {
+      await deleteGroup(editGroup._id);
+      console.log("Group deleted successfully");
+      toast.success("Group deleted successfully");
+      resetForm();
+    } catch (error) {
+      console.error("Error deleting group:", error);
+      toast.error("Failed to delete group");
     }
   };
 
@@ -178,13 +196,25 @@ export default function Communities() {
             )}
           </div>
         ) : (
-          <div className="bg-white h-[508px] mt-10">
-            <button
-              onClick={resetForm}
-              className="ml-1 text-xl text-black rounded"
-            >
-              <IoMdArrowBack className="size-7" />
-            </button>
+          <div className="bg-white h-[508px] mt-10 relative">
+            {/* Header with Back and Delete Icons */}
+            <div className="flex justify-between items-center px-4 py-2">
+              <button
+                onClick={resetForm}
+                className="text-xl text-black rounded"
+              >
+                <IoMdArrowBack className="size-7" />
+              </button>
+              {editGroup && (
+                <button
+                  onClick={handleDeleteGroup}
+                  className="text-red-500 hover:text-red-700"
+                  title="Delete Group"
+                >
+                  <FaTrash className="size-6" />
+                </button>
+              )}
+            </div>
             <div className="flex flex-col items-center gap-4">
               <div className="relative">
                 <img
@@ -259,15 +289,13 @@ export default function Communities() {
                         <IoMdCheckmark />
                         <span className="text-sm">Select</span>
                       </button>
-                    )
+                    )  
                   ) : (
                     <button
                       onClick={() => toggleMemberSelection(user._id)}
                       className="text-emerald-500 hover:text-emerald-700 flex items-center gap-1 mr-8"
                     >
-                      {selectedMembers.includes(user._id) && (
-                        <IoMdCheckmark />
-                      )}
+                      {selectedMembers.includes(user._id) && <IoMdCheckmark />}
                       <span className="text-sm">Select</span>
                     </button>
                   )}

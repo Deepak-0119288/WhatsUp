@@ -6,7 +6,7 @@ export default function ChannelsPage() {
       id: 1,
       name: "WhatsApp",
       followers: "223.4M followers",
-      imageUrl: "/whatsapp.jpg",
+      imageUrl: "/w3.png",
       verified: true,
     },
     {

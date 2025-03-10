@@ -119,7 +119,7 @@ export default function NotesPage() {
                     src={
                       note.profilePic
                         ? `${BASE}${note?.profilePic}`
-                        : "https://randomuser.me/api/portraits/lego/1.jpg"
+                        : "/avatar.png"
                     }
                     alt={note.name}
                     className="rounded-full w-full h-full"
