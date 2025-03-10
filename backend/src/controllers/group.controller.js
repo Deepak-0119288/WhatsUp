@@ -202,4 +202,4 @@ const updateGroup = async (req, res) => {
   }
 };
 
-module.exports = { createGroup, getGroups, sendGroupMessage, getGroupMessages, updateGroup, getUnreadGroupMessages };
+module.exports = { createGroup, getGroups, sendGroupMessage, getGroupMessages, updateGroup, getUnreadGroupMessages, deleteGroup };
