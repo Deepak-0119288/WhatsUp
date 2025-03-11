@@ -77,13 +77,13 @@ const ChatHeader = () => {
             <div className="ml-5">
               <h3 className="font-semibold mt-1">{selectedChat.name}</h3>
               {typingText && (
-                <p className="text-sm text-green-500 italic">{typingText}</p>
+                <p className="text-sm text-green-600 italic">{typingText}</p>
               )}
             </div>
           </div>
         </div>
         <button onClick={() => setSelectedChat(null)}>
-          <X className="text-emerald-600" />
+          <X className="text-emerald-950" />
         </button>
       </div>
     </div>

@@ -26,8 +26,8 @@ export default function App() {
 
   if (ischeckingAuth && !authUser)
     return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#00a884] to-lightgray">
-        <Loader className="size-10 animate-spin text-green-500" />
+      <div className="flex items-center justify-center h-screen bg-slate-50">
+        <Loader className="size-10 animate-spin text-blue-500" />
       </div>
     );
 
