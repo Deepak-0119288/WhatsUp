@@ -11,7 +11,6 @@ import toast from "react-hot-toast";
 
 const BASE = import.meta.env.VITE_REACT_APP_SOCKET_URL;
 
-
 export default function ChatWindow() {
   const { messages, getMessages, selectedChat, sendMessages } = useChat();
   const { authUser, socket } = useAuth();
@@ -23,7 +22,8 @@ export default function ChatWindow() {
 
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   };
 
@@ -63,14 +63,19 @@ export default function ChatWindow() {
           messages: state.messages
             .map((m) => (m._id === newMessage._id ? newMessage : m))
             .concat(
-              state.messages.some((m) => m._id === newMessage._id) ? [] : [newMessage]
+              state.messages.some((m) => m._id === newMessage._id)
+                ? []
+                : [newMessage]
             ),
         }));
         if (
           (!isGroup && newMessage.receiverId === authUser._id) ||
           (isGroup && !newMessage.readBy.includes(authUser._id))
         ) {
-          socket.emit("markMessagesAsRead", { chatId: selectedChat._id, isGroup });
+          socket.emit("markMessagesAsRead", {
+            chatId: selectedChat._id,
+            isGroup,
+          });
         }
       }
     };
@@ -104,7 +109,11 @@ export default function ChatWindow() {
         useChat.setState((state) => ({
           messages: state.messages.map((m) =>
             m._id === updatedMessage._id
-              ? { ...m, read: updatedMessage.read, readBy: updatedMessage.readBy }
+              ? {
+                  ...m,
+                  read: updatedMessage.read,
+                  readBy: updatedMessage.readBy,
+                }
               : m
           ),
         }));
@@ -170,7 +179,7 @@ export default function ChatWindow() {
     setText("");
     setImage(null);
 
-    if (socket) { 
+    if (socket) {
       socket.emit("stopTyping", { chatId, isGroup, senderId: authUser._id });
     }
     if (typingTimeoutRef.current) {
@@ -219,19 +228,22 @@ export default function ChatWindow() {
       }
       return <FaCheck className="text-gray-500" />;
     }
-  };  
+  };
 
   if (!selectedChat) {
     return (
-      <div className="h-[97vh] w-[952px] bg-cover bg-center bg-[#e7ddd2] mt-6 mr-[10px]">
+      <div className="h-[97vh] w-full md:w-[952px] bg-cover bg-center bg-[#e7ddd2] mt-6 mr-0 md:mr-[10px]">
         <div className="flex flex-col justify-center items-center mx-auto p-10 gap-4">
           <FaWhatsapp className="text-green-500 text-[90px] mt-[200px]" />
           <h2 className="text-3xl text-slate-700 font-semibold">
             WhatsUp by ~Deepak
           </h2>
           <div className="text-center text-slate-500">
-            <p>Send and Receive messages, Stay connected across your device effortlessly.</p>
-            <p>This is my MERN Stack Project. Hope You like it!!</p>      
+            <p>
+              Send and Receive messages, Stay connected across your device
+              effortlessly.
+            </p>
+            <p>This is my MERN Stack Project. Hope You like it!!</p>
           </div>
         </div>
       </div>
@@ -239,25 +251,39 @@ export default function ChatWindow() {
   }
 
   return (
-    <div className="h-[97vh] w-[952px] bg-center bg-cover mt-6 mr-[10px]">
-      <div className="flex-1 flex-col overflow-auto">
+    <div className="h-[97vh] w-full md:w-[952px] bg-center bg-cover mt-6 mr-0 md:mr-[10px]">
+      <div className="h-full flex flex-col overflow-hidden">
         <ChatHeader />
-        <div ref={chatContainerRef} className="bg-[url('../public/d-img.jpg')] overflow-y-auto p-4">
+        <div
+          ref={chatContainerRef}
+          className="flex-1 bg-[url('../public/d-img.jpg')] overflow-y-auto p-4"
+        >
           {messages.length === 0 ? (
             <div className="text-center text-slate-500">No messages yet</div>
           ) : (
             messages.map((msg) => (
-              <div  
+              <div
                 key={msg._id}
-                className={`chat ${(msg.senderId._id || msg.senderId) === authUser._id ? "chat-end" : "chat-start"} from-neutral-50`}
+                className={`chat ${
+                  (msg.senderId._id || msg.senderId) === authUser._id
+                    ? "chat-end"
+                    : "chat-start"
+                } from-neutral-50`}
               >
                 {msg.image && (
                   <div
-                    className={`mt-2 flex flex-col ${(msg.senderId._id || msg.senderId) === authUser._id ? "items-end" : "items-start"}`}
+                    className={`mt-2 flex flex-col ${
+                      (msg.senderId._id || msg.senderId) === authUser._id
+                        ? "items-end"
+                        : "items-start"
+                    }`}
                   >
-                    {!!selectedChat.members && (msg.senderId._id || msg.senderId) !== authUser._id && (
-                      <span className="text-sm text-gray-600 mb-1">{msg.senderId.name}</span>
-                    )}
+                    {!!selectedChat.members &&
+                      (msg.senderId._id || msg.senderId) !== authUser._id && (
+                        <span className="text-sm text-gray-600 mb-1">
+                          {msg.senderId.name}
+                        </span>
+                      )}
                     <img
                       src={`${BASE}${msg.image}`}
                       alt="Sent Image"
@@ -265,26 +291,41 @@ export default function ChatWindow() {
                       onLoad={scrollToBottom}
                     />
                     <div
-                      className={`flex items-center ${(msg.senderId._id || msg.senderId) === authUser._id ? "justify-end" : "justify-start"}`}
+                      className={`flex items-center ${
+                        (msg.senderId._id || msg.senderId) === authUser._id
+                          ? "justify-end"
+                          : "justify-start"
+                      }`}
                     >
-                      <time className="text-xs text-slate-500 mt-1 mr-1">{time(msg.createdAt)}</time>
-                      {(msg.senderId._id || msg.senderId) === authUser._id && getTickStatus(msg)}
+                      <time className="text-xs text-slate-500 mt-1 mr-1">
+                        {time(msg.createdAt)}
+                      </time>
+                      {(msg.senderId._id || msg.senderId) === authUser._id &&
+                        getTickStatus(msg)}
                     </div>
                   </div>
                 )}
                 {msg.text && (
                   <div
                     className={`chat-bubble flex flex-col max-w-[75%] break-words ${
-                      (msg.senderId._id || msg.senderId) === authUser._id ? "bg-emerald-700 text-white" : "bg-slate-950 text-white border"
+                      (msg.senderId._id || msg.senderId) === authUser._id
+                        ? "bg-emerald-700 text-white"
+                        : "bg-slate-950 text-white border"
                     }`}
                   >
-                    {!!selectedChat.members && (msg.senderId._id || msg.senderId) !== authUser._id && (
-                      <span className="text-sm text-gray-400 mb-1">{msg.senderId.name}</span>
-                    )}
+                    {!!selectedChat.members &&
+                      (msg.senderId._id || msg.senderId) !== authUser._id && (
+                        <span className="text-sm text-gray-400 mb-1">
+                          {msg.senderId.name}
+                        </span>
+                      )}
                     <p>{msg.text}</p>
                     <div className="self-end text-right flex items-center gap-1">
-                      <time className="text-xs opacity-50">{time(msg.createdAt)}</time>
-                      {(msg.senderId._id || msg.senderId) === authUser._id && getTickStatus(msg)}
+                      <time className="text-xs opacity-50">
+                        {time(msg.createdAt)}
+                      </time>
+                      {(msg.senderId._id || msg.senderId) === authUser._id &&
+                        getTickStatus(msg)}
                     </div>
                   </div>
                 )}
@@ -292,8 +333,11 @@ export default function ChatWindow() {
             ))
           )}
         </div>
-        <div className="p-4 bg-[#e9edef]">
-          <form onSubmit={handleSendMessage} className="relative flex items-center gap-2">
+        <div className="p-4 bg-[#e9edef] shrink-0">
+          <form
+            onSubmit={handleSendMessage}
+            className="relative flex items-center gap-2"
+          >
             {image && (
               <div className="absolute bottom-full mb-5 left-0 flex flex-col items-center">
                 <div className="relative">
@@ -317,12 +361,13 @@ export default function ChatWindow() {
             </button>
             <input
               type="text"
-              className="w-full text-black outline-none bg-white input input-bordered rounded-lg input-lg sm:input-md transition-all"
+              className="w-full text-black outline-none bg-white input input-bordered rounded-lg input-md transition-all"
               placeholder="Type a message..."
               value={text}
               onChange={handleTyping}
               onKeyDown={(e) => {
-                if (e.key === "Enter" && (text.trim() || image)) handleSendMessage(e);
+                if (e.key === "Enter" && (text.trim() || image))
+                  handleSendMessage(e);
               }}
             />
             <input
