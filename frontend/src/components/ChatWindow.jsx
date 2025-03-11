@@ -242,7 +242,7 @@ export default function ChatWindow() {
     <div className="h-[97vh] w-[952px] bg-center bg-cover mt-6">
       <div className="flex-1 flex-col overflow-auto">
         <ChatHeader />
-        <div ref={chatContainerRef} className="h-[78vh] bg-[url('../public/d-img.jpg')] overflow-y-auto p-4">
+        <div ref={chatContainerRef} className="h-[77vh] bg-[url('../public/d-img.jpg')] overflow-y-auto p-4">
           {messages.length === 0 ? (
             <div className="text-center text-slate-500">No messages yet</div>
           ) : (
