@@ -59,7 +59,7 @@ const ChatHeader = () => {
     : null;
 
   return (
-    <div className="p-2.5 bg-slate-50 h-18 border-b">
+    <div className="p-2.5 bg-[#e9edef] h-18 border-b">
       <div className="flex items-center justify-between">  
         <div className="flex items-center gap-3">
           <div className="pt-1 flex flex-row text-black">
@@ -83,7 +83,7 @@ const ChatHeader = () => {
           </div>
         </div>
         <button onClick={() => setSelectedChat(null)}>
-          <X className="text-emerald-950" />
+          <X className="text-emerald-800" />
         </button>
       </div>
     </div>
