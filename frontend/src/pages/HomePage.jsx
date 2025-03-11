@@ -43,7 +43,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row h-[100vh] w-[100vh]">
       <Sidebar onPageClick={handlePageSelection} />
       <div>{renderPage()}</div>
       <ChatWindow selectedChatData={selectedChat} />
