@@ -15,7 +15,7 @@ export default function SettingsPage() {
 
   return (
     <div className="h-[97vh] w-full md:w-[450px] bg-white border border-gray-400 border-y-0 mt-6 flex flex-col overflow-hidden">
-      <div className="p-6 border-b shrink-0 text-black">
+      <div className="p-6 border-b shrink-0 text-black">  
         <h1 className="text-2xl font-bold">Settings</h1>
       </div>
 
