@@ -223,7 +223,7 @@ export default function ChatWindow() {
 
   if (!selectedChat) {
     return (
-      <div className="h-[95vh] w-[60%] bg-cover bg-center bg-[#e7ddd2] mt-6">
+      <div className="h-[95vh] w-[952px] bg-cover bg-center bg-[#e7ddd2] mt-6">
         <div className="flex flex-col justify-center items-center mx-auto p-10 gap-4">
           <FaWhatsapp className="text-green-500 text-[90px] mt-[200px]" />
           <h2 className="text-3xl text-slate-700 font-semibold">
