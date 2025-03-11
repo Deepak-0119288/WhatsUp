@@ -12,10 +12,12 @@ const app = express();
 const server = http.createServer(app);
 
 const io = new Server(server, {
-  cors: { origin: [process.env.FRONTEND_URL],
-          methods: ["GET", "POST"],
-          credentials: true, 
-   },
+  cors: {
+    origin: [process.env.FRONTEND_URL],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  },
 });
 
 const userSocket = {};
@@ -23,7 +25,9 @@ const userSocket = {};
 io.on("connection", async (socket) => {
   const userId = socket.handshake.query.userId;
   if (!userId || userId === "undefined") {
-    console.log("Socket connection rejected: Invalid or missing userId", { socketId: socket.id });
+    console.log("Socket connection rejected: Invalid or missing userId", {
+      socketId: socket.id,
+    });
     socket.disconnect();
     return;
   }
@@ -185,13 +189,23 @@ io.on("connection", async (socket) => {
       group.members.forEach((memberId) => {
         const socketId = getReceiverId(memberId.toString());
         if (socketId && memberId.toString() !== senderId) {
-          io.to(socketId).emit("typing", { chatId, senderId, username, isGroup });
+          io.to(socketId).emit("typing", {
+            chatId,
+            senderId,
+            username,
+            isGroup,
+          });
         }
       });
     } else {
       const receiverSocketId = getReceiverId(chatId);
       if (receiverSocketId && chatId !== senderId) {
-        io.to(receiverSocketId).emit("typing", { chatId, senderId, username, isGroup });
+        io.to(receiverSocketId).emit("typing", {
+          chatId,
+          senderId,
+          username,
+          isGroup,
+        });
       }
     }
   });
@@ -210,7 +224,11 @@ io.on("connection", async (socket) => {
     } else {
       const receiverSocketId = getReceiverId(chatId);
       if (receiverSocketId && chatId !== senderId) {
-        io.to(receiverSocketId).emit("stopTyping", { chatId, senderId, isGroup });
+        io.to(receiverSocketId).emit("stopTyping", {
+          chatId,
+          senderId,
+          isGroup,
+        });
       }
     }
   });
