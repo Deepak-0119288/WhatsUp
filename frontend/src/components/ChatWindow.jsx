@@ -251,7 +251,7 @@ export default function ChatWindow() {
   }
 
   return (
-    <div className="h-[97vh] w-full md:w-[952px] bg-center bg-cover mt-6 mr-0 md:mr-3">
+    <div className="h-[97vh] w-full md:w-[952px] bg-center bg-cover mt-6 mr-0 md:mr-4">
       <div className="h-full flex flex-col overflow-hidden">
         <ChatHeader />
         <div
