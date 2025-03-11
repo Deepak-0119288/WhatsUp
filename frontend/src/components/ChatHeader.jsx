@@ -59,10 +59,10 @@ const ChatHeader = () => {
     : null;
 
   return (
-    <div className="p-2.5 bg-slate-50 h-19 border-b">
+    <div className="p-2.5 bg-slate-50 h-18 border-b">
       <div className="flex items-center justify-between">  
         <div className="flex items-center gap-3">
-          <div className="pt-2 flex flex-row text-black">
+          <div className="pt-1 flex flex-row text-black">
             <div className="size-12 flex items-center justify-center rounded-full bg-gray-300">
               {selectedChat?.profilePic ? (
                 <img
