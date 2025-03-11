@@ -124,7 +124,7 @@ export default function LowerChat({ onChatClick }) {
         </div>
       </div>
 
-      <div className="flex flex-col h-[510px] overflow-y-auto">
+      <div className="flex flex-col overflow-y-auto">
         {filter !== "groups" && filteredUsers.map((user) => (
           <button
             key={user._id}
