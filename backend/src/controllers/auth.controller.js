@@ -16,13 +16,11 @@ const signup = async (req, res) => {
       return res.status(400).json({ message: "Email already exists" });
     }
 
-    
-
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
       name,
-      email,  
+      email,
       password: hashedPassword,
     });
 
@@ -45,7 +43,7 @@ const signup = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body  ;
+  const { email, password } = req.body;
 
   try {
     const user = await User.findOne({ email });
@@ -76,7 +74,14 @@ const login = async (req, res) => {
 
 const logout = (req, res) => {
   try {
-    res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
+    res.cookie("jwt", "", {
+      httpOnly: true,
+      expires: new Date(0),
+      secure: true,
+      sameSite: "Strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
+    });
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     console.log("Error in Logout Controller");
@@ -92,7 +97,7 @@ const updateProfile = async (req, res) => {
     if (!file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
-  
+
     const filePath = `/uploads/${file.filename}`;
     const updatedUser = await User.findByIdAndUpdate(
       userId,
@@ -112,7 +117,7 @@ const updateProfile = async (req, res) => {
 };
 
 const checkAuth = (req, res) => {
-  try {  
+  try {
     res.status(200).json(req.user);
   } catch (error) {
     console.log("Error in checkAuth controller: ", error);
@@ -121,5 +126,3 @@ const checkAuth = (req, res) => {
 };
 
 module.exports = { signup, login, logout, checkAuth, updateProfile };
-
-

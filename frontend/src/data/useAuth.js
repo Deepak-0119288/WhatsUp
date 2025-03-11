@@ -18,6 +18,7 @@ export const useAuth = create((set, get) => ({
   checkAuth: async () => {
     try {
       const res = await axiosInstance.get("/auth/check");
+      console.log("checkAuth response:", res.data);
       set({ authUser: res.data });
       get().connectSocket();
     } catch (error) {
@@ -53,6 +54,7 @@ export const useAuth = create((set, get) => ({
     try {
       await axiosInstance.post("/auth/logout");
       set({ authUser: null });
+      document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
       get().disConnectSocket();
       toast.success("Logged out successfully");
     } catch (error) {
