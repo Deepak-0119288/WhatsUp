@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 
 const BASE = import.meta.env.VITE_REACT_APP_SOCKET_URL;
 
-export default function Communities() {
+export default function GroupPage() {
   const { createGroup, updateGroup, deleteGroup, users, groups } = useChat();
   const { authUser } = useAuth();
 
@@ -37,20 +37,9 @@ export default function Communities() {
       toast.error("Group name and at least one member are required");
       return;
     }
-    console.log("Creating group with:", {
-      groupName,
-      selectedMembers,
-      groupProfilePic,
-    });
     createGroup(groupName, selectedMembers, groupProfilePic)
-      .then(() => {
-        console.log("Group created successfully");
-        resetForm();
-      })
-      .catch((error) => {
-        console.error("Error creating group:", error);
-        toast.error("Failed to create group");
-      });
+      .then(() => resetForm())
+      .catch((error) => toast.error("Failed to create group"));
   };
 
   const handleEditGroup = (group) => {
@@ -74,10 +63,8 @@ export default function Communities() {
         selectedMembers,
         groupProfilePic
       );
-      console.log("Group updated successfully");
       resetForm();
     } catch (error) {
-      console.error("Error updating group:", error);
       toast.error("Failed to update group");
     }
   };
@@ -86,11 +73,9 @@ export default function Communities() {
     if (!editGroup) return;
     try {
       await deleteGroup(editGroup._id);
-      console.log("Group deleted successfully");
       toast.success("Group deleted successfully");
       resetForm();
     } catch (error) {
-      console.error("Error deleting group:", error);
       toast.error("Failed to delete group");
     }
   };
@@ -129,14 +114,17 @@ export default function Communities() {
     : [];
 
   return (
-    <div className="h-[95vh] w-full md:w-[450px] bg-white border border-gray-400 border-y-0 mt-6">
-      <h2 className="text-2xl text-black font-bold pt-4 pl-4">Groups</h2>
-      <div className="flex-1">
+    <div className="h-[97vh] w-full md:w-[450px] bg-white border border-gray-400 border-y-0 mt-6 flex flex-col overflow-hidden">
+      <div className="pt-4 pl-4 border-b shrink-0">
+        <h2 className="text-2xl text-black font-bold">Groups</h2>
+      </div>
+
+      <div className="flex-1 overflow-y-auto">
         {!showGroupForm && !editGroup ? (
-          <div className="h-[calc(95vh-80px)] overflow-y-auto">
-            <ul className="py-3">
+          <div className="py-3">
+            <ul>
               <li
-                className="w-[450px] border-b px-4 py-3 text-gray-600 hover:bg-gray-200 cursor-pointer flex items-center space-x-2"
+                className="w-full border-b px-4 py-3 text-gray-600 hover:bg-gray-200 cursor-pointer flex items-center space-x-2"
                 onClick={() => setShowGroupForm(true)}
               >
                 <div className="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center">
@@ -196,12 +184,9 @@ export default function Communities() {
             )}
           </div>
         ) : (
-          <div className="bg-white h-[508px] mt-10 relative">
-            <div className="flex justify-between items-center px-4 py-2">
-              <button
-                onClick={resetForm}
-                className="text-xl text-black rounded"
-              >
+          <div className="p-4 text-black">
+            <div className="flex justify-between items-center py-2">
+              <button onClick={resetForm} className="text-xl text-black">
                 <IoMdArrowBack className="size-7" />
               </button>
               {editGroup && (
@@ -245,7 +230,7 @@ export default function Communities() {
                 className="w-80 p-1 mt-2 mb-2 outline-none border-emerald-600 border-b-2 text-[15px] text-black bg-white"
               />
             </div>
-            <div className="overflow-y-auto h-[300px] mb-2 mt-2 ml-2">
+            <div className="overflow-y-auto h-[300px] mb-2 mt-2">
               {users.map((user) => (
                 <div
                   key={user._id}
@@ -301,7 +286,7 @@ export default function Communities() {
                 </div>
               ))}
             </div>
-            <div className="ml-48">
+            <div className="flex justify-center">
               <button
                 onClick={editGroup ? handleUpdateGroup : handleCreateGroup}
                 className="pt-2 text-3xl text-green-500 rounded hover:text-green-600 transition duration-200"

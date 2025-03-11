@@ -40,15 +40,17 @@ export default function ChannelsPage() {
   ];
 
   return (
-    <div className="h-[95vh] w-full md:w-[450px] bg-white border border-gray-400 border-y-0 mt-6">
-      <div className="p-6">
-        <div className="flex items-center text-black justify-between mb-6">
+    <div className="h-[97vh] w-full md:w-[450px] bg-white border border-gray-400 border-y-0 mt-6 flex flex-col overflow-hidden">
+      <div className="p-6 border-b shrink-0">
+        <div className="flex items-center text-black justify-between">
           <h1 className="text-2xl font-bold">Channels</h1>
           <button className="p-2 hover:bg-slate-300 rounded-full transition duration-200">
             <Plus className="h-5 w-5 text-green-500" />
           </button>
         </div>
+      </div>
 
+      <div className="flex-1 overflow-y-auto p-6 text-black">
         <div className="text-center text-slate-500 mb-8">
           <h2 className="text-lg font-medium mb-1">
             Stay updated on your favorite topics
@@ -95,7 +97,8 @@ export default function ChannelsPage() {
         </div>
 
         <div className="flex items-center justify-center">
-        <button className="w-[150px] mt-8 py-2.5 bg-emerald-600 text-white rounded-full font-medium hover:bg-emerald-700 transition duration-200">            Discover more
+          <button className="w-[150px] mt-8 py-2.5 bg-emerald-600 text-white rounded-full font-medium hover:bg-emerald-700 transition duration-200">
+            Discover more
           </button>
         </div>
       </div>
