@@ -115,7 +115,7 @@ export default function GroupPage() {
 
   return (
     <div className="h-[97vh] w-full md:w-[450px] bg-white border border-gray-400 border-y-0 mt-6 flex flex-col overflow-hidden">
-      <div className="pt-4 pl-4 border-b shrink-0">
+      <div className="pt-4 pl-4 shrink-0">
         <h2 className="text-2xl text-black font-bold">Groups</h2>
       </div>
 
@@ -289,7 +289,7 @@ export default function GroupPage() {
             <div className="flex justify-center">
               <button
                 onClick={editGroup ? handleUpdateGroup : handleCreateGroup}
-                className="pt-2 text-3xl text-green-500 rounded hover:text-green-600 transition duration-200"
+                className="pt-2 text-3xl text-emerald-600 rounded hover:text-green-600 transition duration-200"
               >
                 <IoIosCheckmarkCircle className="size-14" />
               </button>
