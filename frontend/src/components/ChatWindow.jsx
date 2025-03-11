@@ -242,7 +242,7 @@ export default function ChatWindow() {
     <div className="h-[97vh] w-[952px] bg-center bg-cover mt-6 mr-[10px]">
       <div className="flex-1 flex-col overflow-auto">
         <ChatHeader />
-        <div ref={chatContainerRef} className="h-[77vh] bg-[url('../public/d-img.jpg')] overflow-y-auto p-4">
+        <div ref={chatContainerRef} className="bg-[url('../public/d-img.jpg')] overflow-y-auto p-4">
           {messages.length === 0 ? (
             <div className="text-center text-slate-500">No messages yet</div>
           ) : (
@@ -292,7 +292,7 @@ export default function ChatWindow() {
             ))
           )}
         </div>
-        <div className="p-4 bg-[#e9edef] h-[10vh]">
+        <div className="p-4 bg-[#e9edef]">
           <form onSubmit={handleSendMessage} className="relative flex items-center gap-2">
             {image && (
               <div className="absolute bottom-full mb-5 left-0 flex flex-col items-center">
