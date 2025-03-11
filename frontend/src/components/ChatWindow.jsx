@@ -239,7 +239,7 @@ export default function ChatWindow() {
   }
 
   return (
-    <div className="h-[97vh] w-[952px] bg-center bg-cover overflow-hidden mt-6">
+    <div className="h-[97vh] w-[952px] bg-center bg-cover mt-6">
       <div className="flex-1 flex-col overflow-auto">
         <ChatHeader />
         <div ref={chatContainerRef} className="h-[80vh] bg-[url('../public/d-img.jpg')] overflow-y-auto p-4">
