@@ -292,7 +292,7 @@ export default function ChatWindow() {
             ))
           )}
         </div>
-        <div className="p-4 bg-[#e9edef] h-[7vh]">
+        <div className="p-4 bg-[#e9edef] h-[11vh]">
           <form onSubmit={handleSendMessage} className="relative flex items-center gap-2">
             {image && (
               <div className="absolute bottom-full mb-5 left-0 flex flex-col items-center">
