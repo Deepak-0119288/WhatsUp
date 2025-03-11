@@ -76,7 +76,7 @@ export default function LowerChat({ onChatClick }) {
   });
 
   return (
-    <div className="h-[95vh] w-[30%] bg-white border border-gray-400 border-y-0 mt-6">
+    <div className="h-[95vh] w-[40%] bg-white border border-gray-400 border-y-0 mt-6">
       <div className="py-3 border-b">
         <UpperChat />
         <div className="m-2 bg-[#e9edef] flex items-center h-[35px] rounded-xl px-2 mt-5">
