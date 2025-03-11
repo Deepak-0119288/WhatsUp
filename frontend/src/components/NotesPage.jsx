@@ -4,7 +4,6 @@ import { useChat } from "../data/useChat";
 
 const BASE = import.meta.env.VITE_REACT_APP_SOCKET_URL;
 
-
 export default function NotesPage() {
   const { authUser } = useAuth();
   const {
@@ -29,7 +28,7 @@ export default function NotesPage() {
   };
 
   return (
-    <div className="h-[95vh] w-[450px] bg-white border border-gray-400 border-y-0 mt-6 overflow-y-auto">
+    <div className="h-[95vh] w-full md:w-[450px] bg-white border border-gray-400 border-y-0 mt-6 overflow-y-auto">
       <div className="p-4 text-black">
         <h2 className="text-[23px] font-bold">Notes</h2>
 
@@ -83,7 +82,6 @@ export default function NotesPage() {
             </div>
           </div>
           <div>
-            {/* <p className="font-medium">{authUser?.name || "You"}</p> */}
             {newNote === "" ? (
               <p className="text-sm text-gray-500">Click to add a note</p>
             ) : (
@@ -99,7 +97,7 @@ export default function NotesPage() {
                 />
                 <button
                   onClick={handleAddNote}
-                  className="text-sm text-green-500 mt-1 ml-5"
+                  className="text-sm text-green-500 mt-1 ml-5 hover:text-green-600 transition duration-200"
                 >
                   Add Note
                 </button>
@@ -114,21 +112,23 @@ export default function NotesPage() {
             notes.map((note, index) => (
               <div key={note.userId} className="flex items-center space-x-3">
                 <div className="flex flex-col  items-center">
-                <div className="w-12 h-12 rounded-full border-2 border-green-500 flex items-center justify-center">
-                  <img
-                    src={
-                      note.profilePic
-                        ? `${BASE}${note?.profilePic}`
-                        : "/avatar.png"
-                    }
-                    alt={note.name}
-                    className="rounded-full w-full h-full"
-                  />
-                </div>
-                <p className="text-sm">{note.name}</p>
+                  <div className="w-12 h-12 rounded-full border-2 border-green-500 flex items-center justify-center">
+                    <img
+                      src={
+                        note.profilePic
+                          ? `${BASE}${note?.profilePic}`
+                          : "/avatar.png"
+                      }
+                      alt={note.name}
+                      className="rounded-full w-full h-full"
+                    />
+                  </div>
+                  <p className="text-sm">{note.name}</p>
                 </div>
                 <div>
-                  <p className="text-lg text-black max-w-[350px] break-words">{note.note.text}</p>
+                  <p className="text-lg text-black max-w-[350px] break-words">
+                    {note.note.text}
+                  </p>
                   <p className="text-sm text-gray-500 mb-3">
                     {new Date(note.note.createdAt).toLocaleString([], {
                       weekday: "long",

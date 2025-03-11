@@ -12,7 +12,7 @@ const generateToken = (userId, res) => {
     secure: true,
   });     
 
-  return token;
+  return token; 
 };
  
 module.exports = generateToken; 

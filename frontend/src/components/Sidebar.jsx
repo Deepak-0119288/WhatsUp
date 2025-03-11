@@ -27,8 +27,8 @@ export default function Sidebar({ onPageClick }) {
   ];
 
   return (
-    <div className="h-[95vh] w-[70px] mtw-[65px] bg-[#e9edef] flex flex-col justify-between mt-6 ml-10">
-      <div className="flex flex-col items-center space-y-6 mt-4">
+    <div className="h-auto md:h-[95vh] w-full md:w-[70px] bg-[#e9edef] flex flex-row md:flex-col justify-between mt-0 md:mt-6 ml-0 md:ml-10">
+      <div className="flex flex-row md:flex-col items-center space-x-4 md:space-x-0 md:space-y-6 p-4 md:mt-4">
         {menuItems.map(({ id, icon: Icon, label }) => (
           <div
             key={id}
@@ -39,19 +39,18 @@ export default function Sidebar({ onPageClick }) {
             <Icon
               className={`w-[28px] h-[32px] transition duration-200 ${
                 activePage === id
-                  ? "text-slate-600"
-                  : "text-[#54656f] group-hover:text-slate-600"
+                  ? "text-green-500"
+                  : "text-[#54656f] group-hover:text-green-500"
               }`}
               onClick={() => handlePageClick(id)}
             />
-            <span className="absolute -left-15 top-10 bg-black text-white px-3 py-1 text-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+            <span className="absolute left-1/2 md:-left-15 top-10 md:top-10 -translate-x-1/2 md:translate-x-0 bg-black text-white px-3 py-1 text-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
               {label}
             </span>
           </div>
         ))}
       </div>
-
-      <div className="flex flex-col items-center space-y-4 mb-4">
+      <div className="flex flex-row md:flex-col items-center space-x-4 md:space-x-0 md:space-y-4 p-4 md:mb-4">
         {bottomItems.map(({ id, icon: Icon, label }) => (
           <div
             key={id}
@@ -63,11 +62,11 @@ export default function Sidebar({ onPageClick }) {
             <Icon
               className={`w-[28px] h-[32px] transition duration-200 ${
                 activePage === id
-                  ? "text-slate-600"
-                  : "text-[#54656f] group-hover:text-slate-600"
+                  ? "text-green-500"
+                  : "text-[#54656f] group-hover:text-green-500"
               }`}
             />
-            <span className="absolute -left-15 top-10 bg-black text-white px-3 py-1 text-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <span className="absolute left-1/2 md:-left-15 top-10 md:top-10 -translate-x-1/2 md:translate-x-0 bg-black text-white px-3 py-1 text-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200">
               {label}
             </span>
           </div>

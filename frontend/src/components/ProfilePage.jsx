@@ -23,15 +23,15 @@ export default function ProfilePage() {
 
     const formData = new FormData();
     formData.append("profilePic", file);
-  
+
     await updateProfile(formData);
   };
 
   return (
-    <div className="h-[95vh] w-[450px] bg-white border border-gray-400 border-y-0 mt-6">
+    <div className="h-[95vh] w-full md:w-[450px] bg-white border border-gray-400 border-y-0 mt-6">
       <h1 className="text-black text-2xl p-6 font-bold">Profile</h1>
 
-      <div className="w-[450px] bg-gray-100">
+      <div className="w-full md:w-[450px] bg-gray-100">
         <div className="w-[450px] border-t border-b p-6 space-y-8">
           <div className="text-center">
             <p className="mt-2">Your profile information</p>

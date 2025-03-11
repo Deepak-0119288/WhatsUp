@@ -19,7 +19,7 @@ const HomePage = () => {
   const handlePageSelection = (page) => {
     setActivePage(page);
     if (page !== "chats") {
-      setSelectedChat(null); 
+      setSelectedChat(null);
     }
   };
 
@@ -43,9 +43,9 @@ const HomePage = () => {
   };
 
   return (
-    <div className="flex flex-row h-[100vh] w-[97%]">
+    <div className="flex flex-col md:flex-row h-[100vh] w-full md:w-[97%]">
       <Sidebar onPageClick={handlePageSelection} />
-      <div>{renderPage()}</div>
+      <div className="w-full md:flex-1">{renderPage()}</div>
       <ChatWindow selectedChatData={selectedChat} />
     </div>
   );

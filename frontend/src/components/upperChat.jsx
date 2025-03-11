@@ -3,7 +3,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { BiCommentAdd } from "react-icons/bi";
 import { useAuth } from "../data/useAuth";
 import Groups from "./GroupPage";
-export default function UpperChat () {
+export default function UpperChat() {
   const { logout } = useAuth();
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,15 +13,15 @@ export default function UpperChat () {
     {
       setMenuOpen(false);
       setAddMenuOpen(false);
-      setShowGroupForm(false);  
+      setShowGroupForm(false);
     }
   };
 
   return (
-    <div
-      className="px-5 flex justify-between items-center"
+    // <div
+    // className="px-5 flex justify-between items-center"
+    <div className="px-5 flex flex-col md:flex-row justify-between items-center">
       onClick={handleOutsideClick}
-    >
       <p className="text-[23px] text-black font-bold">Chats</p>
       <div className="flex gap-6 cursor-pointer relative">
         <div
@@ -29,7 +29,7 @@ export default function UpperChat () {
           onClick={(e) => e.stopPropagation()}
         >
           <BiCommentAdd
-            className="w-6 h-6 text-slate-700 ml-5"
+            className="w-6 h-6 text-slate-700 ml-0 md:ml-5"
             onClick={() => {
               setAddMenuOpen(!AddMenuOpen);
               setMenuOpen(false);

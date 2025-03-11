@@ -13,13 +13,11 @@ const ChatHeader = () => {
   const [typingUsers, setTypingUsers] = useState([]);
 
   useEffect(() => {
-    if (!socket || !selectedChat) return; // Works for both individual and group chats
+    if (!socket || !selectedChat) return; 
 
     const handleTyping = ({ chatId, senderId, username, isGroup }) => {
       const expectedChatId = selectedChat._id;
 
-      // For individual chats, match senderId with selectedChat._id
-      // For group chats, match chatId with selectedChat._id
       const matchesChat = isGroup
         ? chatId === expectedChatId
         : senderId === expectedChatId;
@@ -79,13 +77,13 @@ const ChatHeader = () => {
             <div className="ml-5">
               <h3 className="font-semibold mt-1">{selectedChat.name}</h3>
               {typingText && (
-                <p className="text-sm text-green-600 italic">{typingText}</p>
+                <p className="text-sm text-green-500 italic">{typingText}</p>
               )}
             </div>
           </div>
         </div>
         <button onClick={() => setSelectedChat(null)}>
-          <X className="text-emerald-950" />
+          <X className="text-emerald-600" />
         </button>
       </div>
     </div>

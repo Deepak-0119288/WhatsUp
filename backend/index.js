@@ -12,7 +12,7 @@ const groupRoutes = require("./src/routes/group.route");
 
 dotenv.config();  
 
-app.use(
+app.use(  
   cors({  
     origin: process.env.FRONTEND_URL,
     credentials: true,

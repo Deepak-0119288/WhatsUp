@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useChat } from "../data/useChat";
 import { useAuth } from "../data/useAuth";
-import { FaUser, FaUsers, FaEdit, FaTrash } from "react-icons/fa"; // Added FaTrash
+import { FaUser, FaUsers, FaEdit, FaTrash } from "react-icons/fa";
 import {
   IoMdArrowBack,
   IoIosCheckmarkCircle,
@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 const BASE = import.meta.env.VITE_REACT_APP_SOCKET_URL;
 
 export default function Communities() {
-  const { createGroup, updateGroup, deleteGroup, users, groups } = useChat(); // Added deleteGroup
+  const { createGroup, updateGroup, deleteGroup, users, groups } = useChat();
   const { authUser } = useAuth();
 
   const [showGroupForm, setShowGroupForm] = useState(false);
@@ -129,7 +129,7 @@ export default function Communities() {
     : [];
 
   return (
-    <div className="h-[95vh] w-[450px] bg-white border border-gray-400 border-y-0 mt-6">
+    <div className="h-[95vh] w-full md:w-[450px] bg-white border border-gray-400 border-y-0 mt-6">
       <h2 className="text-2xl text-black font-bold pt-4 pl-4">Groups</h2>
       <div className="flex-1">
         {!showGroupForm && !editGroup ? (
@@ -197,7 +197,6 @@ export default function Communities() {
           </div>
         ) : (
           <div className="bg-white h-[508px] mt-10 relative">
-            {/* Header with Back and Delete Icons */}
             <div className="flex justify-between items-center px-4 py-2">
               <button
                 onClick={resetForm}
@@ -289,7 +288,7 @@ export default function Communities() {
                         <IoMdCheckmark />
                         <span className="text-sm">Select</span>
                       </button>
-                    )  
+                    )
                   ) : (
                     <button
                       onClick={() => toggleMemberSelection(user._id)}
@@ -305,7 +304,7 @@ export default function Communities() {
             <div className="ml-48">
               <button
                 onClick={editGroup ? handleUpdateGroup : handleCreateGroup}
-                className="pt-2 text-3xl text-emerald-700 rounded"
+                className="pt-2 text-3xl text-green-500 rounded hover:text-green-600 transition duration-200"
               >
                 <IoIosCheckmarkCircle className="size-14" />
               </button>
