@@ -8,6 +8,7 @@ import { formatLastOnline } from "../lib/timeUtils";
 
 const BASE = import.meta.env.VITE_REACT_APP_SOCKET_URL;
 
+
 export default function LowerChat({ onChatClick }) {
   const {
     getUsers,
@@ -59,48 +60,39 @@ export default function LowerChat({ onChatClick }) {
   };
 
   const filteredUsers = users.filter((user) => {
-    const matchesSearch = user.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    if (filter === "online")
-      return matchesSearch && onlineUsers.includes(user._id);
-    if (filter === "unread")
-      return matchesSearch && hasUnreadMessages(user._id);
-    if (filter === "groups") return false;
-    return matchesSearch;
+    const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase());
+    if (filter === "online") return matchesSearch && onlineUsers.includes(user._id);
+    if (filter === "unread") return matchesSearch && hasUnreadMessages(user._id);
+    if (filter === "groups") return false; 
+    return matchesSearch; 
   });
 
   const filteredGroups = groups.filter((group) => {
-    const matchesSearch = group.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
+    const matchesSearch = group.name.toLowerCase().includes(searchTerm.toLowerCase());
     if (filter === "groups") return matchesSearch; // Only groups for "groups"
     if (filter === "all") return matchesSearch;
-    if (filter === "unread")
-      return matchesSearch && hasUnreadMessages(group._id);
+    if (filter === "unread") return matchesSearch && hasUnreadMessages(group._id);
     return false;
   });
 
   return (
-    <div className="h-[95vh] w-full md:w-[450px] bg-white border border-gray-400 border-y-0 mt-6">
+    <div className="h-[95vh] w-[450px] bg-white border border-gray-400 border-y-0 mt-6">
       <div className="py-3 border-b">
         <UpperChat />
         <div className="m-2 bg-[#e9edef] flex items-center h-[35px] rounded-xl px-2 mt-5">
           <input
             type="text"
             placeholder="Search"
-            className="ml-3 border-none outline-none w-full text-[15px] bg-[#e9edef] text-black"
+            className="ml-3 border-none outline-none w-full text-[15px] bg-[#e9edef]"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <div className="ml-2 mt-2 flex flex-wrap gap-2">
+        <div className="ml-2 mt-2 flex gap-2">
           <button
             onClick={() => setFilter("all")}
             className={`px-3 py-1 rounded-full text-sm ${
-              filter === "all"
-                ? "bg-emerald-600 text-white"
-                : "bg-gray-200 text-black"
+              filter === "all" ? "bg-emerald-600 text-white" : "bg-gray-200 text-black"
             }`}
           >
             All
@@ -108,9 +100,7 @@ export default function LowerChat({ onChatClick }) {
           <button
             onClick={() => setFilter("online")}
             className={`px-3 py-1 rounded-full text-sm ${
-              filter === "online"
-                ? "bg-emerald-600 text-white"
-                : "bg-gray-200 text-black"
+              filter === "online" ? "bg-emerald-600 text-white" : "bg-gray-200 text-black"
             }`}
           >
             Online
@@ -118,9 +108,7 @@ export default function LowerChat({ onChatClick }) {
           <button
             onClick={() => setFilter("unread")}
             className={`px-3 py-1 rounded-full text-sm ${
-              filter === "unread"
-                ? "bg-emerald-600 text-white"
-                : "bg-gray-200 text-black"
+              filter === "unread" ? "bg-emerald-600 text-white" : "bg-gray-200 text-black"
             }`}
           >
             Unread
@@ -128,9 +116,7 @@ export default function LowerChat({ onChatClick }) {
           <button
             onClick={() => setFilter("groups")}
             className={`px-3 py-1 rounded-full text-sm ${
-              filter === "groups"
-                ? "bg-emerald-600 text-white"
-                : "bg-gray-200 text-black"
+              filter === "groups" ? "bg-emerald-600 text-white" : "bg-gray-200 text-black"
             }`}
           >
             Groups
@@ -138,62 +124,59 @@ export default function LowerChat({ onChatClick }) {
         </div>
       </div>
 
-      <div className="flex flex-col h-[calc(95vh-150px)] md:h-[510px] overflow-y-auto">
-        {filter !== "groups" &&
-          filteredUsers.map((user) => (
-            <button
-              key={user._id}
-              onClick={() => {
-                setSelectedChat(user);
-                onChatClick(user);
-              }}
-              className={`w-full p-3 flex items-center justify-between gap-3 hover:bg-slate-200 transition-colors ${
-                selectedChat?._id === user._id ? "bg-slate-200" : ""
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <div className="relative">
-                  {user.profilePic ? (
-                    <img
-                      src={`${BASE}${user.profilePic}`}
-                      alt={user.name}
-                      className="size-12 object-cover rounded-full"
-                    />
-                  ) : (
-                    <div className="size-12 flex items-center justify-center rounded-full bg-gray-300">
-                      <FaUser className="text-gray-600 text-2xl" />
-                    </div>
-                  )}
-                  {onlineUsers.includes(user._id) && (
-                    <span className="absolute bottom-0 right-0 size-3 bg-green-500 rounded-full ring-1 ring-zinc-700" />
-                  )}
-                </div>
-                <div className="text-left min-w-0">
-                  <div className="font-medium truncate text-black">
-                    {user.name}
+      <div className="flex flex-col h-[510px] overflow-y-auto">
+        {filter !== "groups" && filteredUsers.map((user) => (
+          <button
+            key={user._id}
+            onClick={() => {
+              setSelectedChat(user);
+              onChatClick(user);
+            }}
+            className={`w-full p-3 flex items-center justify-between gap-3 hover:bg-slate-200 transition-colors ${
+              selectedChat?._id === user._id ? "bg-slate-200" : ""
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                {user.profilePic ? (
+                  <img
+                    src={`${BASE}${user.profilePic}`}
+                    alt={user.name}
+                    className="size-12 object-cover rounded-full"
+                  />
+                ) : (
+                  <div className="size-12 flex items-center justify-center rounded-full bg-gray-300">
+                    <FaUser className="text-gray-600 text-2xl" />
                   </div>
-                  <div
-                    className={`text-sm ${
-                      onlineUsers.includes(user._id)
-                        ? "text-emerald-400"
-                        : "text-gray-400"
-                    }`}
-                  >
-                    {onlineUsers.includes(user._id)
-                      ? "Online"
-                      : formatLastOnline(user.lastOnline)}
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center mr-6">
-                {hasUnreadMessages(user._id) && (
-                  <span className="size-[22px] bg-green-500 rounded-full text-[12px] text-white flex justify-center items-center align-middle">
-                    {getUnreadCount(user._id)}
-                  </span>
+                )}
+                {onlineUsers.includes(user._id) && (
+                  <span className="absolute bottom-0 right-0 size-3 bg-green-500 rounded-full ring-1 ring-zinc-700" />
                 )}
               </div>
-            </button>
-          ))}
+              <div className="text-left min-w-0">
+                <div className="font-medium truncate text-black">{user.name}</div>
+                <div
+                  className={`text-sm ${
+                    onlineUsers.includes(user._id)
+                      ? "text-emerald-400"
+                      : "text-gray-400"
+                  }`}
+                >
+                  {onlineUsers.includes(user._id)
+                    ? "Online"
+                    : formatLastOnline(user.lastOnline)}
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center mr-6">
+              {hasUnreadMessages(user._id) && (
+                <span className="size-[22px] bg-green-500 rounded-full text-[12px] text-white flex justify-center items-center align-middle">
+                  {getUnreadCount(user._id)}
+                </span>
+              )}
+            </div>
+          </button>
+        ))}
 
         {filteredGroups.map((group) => (
           <button
@@ -231,9 +214,7 @@ export default function LowerChat({ onChatClick }) {
                 )}
               </div>
               <div className="text-left min-w-0">
-                <div className="font-medium truncate text-black">
-                  {group.name}
-                </div>
+                <div className="font-medium truncate text-black">{group.name}</div>
                 <div className="text-sm text-gray-400">
                   {group.members.length} members
                 </div>
@@ -309,9 +290,7 @@ export default function LowerChat({ onChatClick }) {
                   );
                 })
               ) : (
-                <div className="text-center text-gray-500">
-                  No members found
-                </div>
+                <div className="text-center text-gray-500">No members found</div>
               )}
             </div>
           </div>
