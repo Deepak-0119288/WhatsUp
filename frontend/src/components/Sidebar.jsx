@@ -27,7 +27,7 @@ export default function Sidebar({ onPageClick }) {
   ];
 
   return (
-    <div className="w-[70px] mtw-[65px] bg-[#e9edef] flex flex-col justify-between mt-6 ml-10">
+    <div className="h-[100%] w-[70px] mtw-[65px] bg-[#e9edef] flex flex-col justify-between mt-6 ml-10">
       <div className="flex flex-col items-center space-y-6 mt-4">
         {menuItems.map(({ id, icon: Icon, label }) => (
           <div
