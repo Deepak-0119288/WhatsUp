@@ -223,7 +223,7 @@ export default function ChatWindow() {
 
   if (!selectedChat) {
     return (
-      <div className="h-[100vh] w-[952px] bg-cover bg-center bg-[#e7ddd2] mt-6">
+      <div className="h-[97vh] w-[952px] bg-cover bg-center bg-[#e7ddd2] mt-6">
         <div className="flex flex-col justify-center items-center mx-auto p-10 gap-4">
           <FaWhatsapp className="text-green-500 text-[90px] mt-[200px]" />
           <h2 className="text-3xl text-slate-700 font-semibold">
@@ -239,7 +239,7 @@ export default function ChatWindow() {
   }
 
   return (
-    <div className="h-[100vh] w-[952px] bg-center bg-cover overflow-hidden mt-6">
+    <div className="h-[97vh] w-[952px] bg-center bg-cover overflow-hidden mt-6">
       <div className="flex-1 flex-col overflow-auto">
         <ChatHeader />
         <div ref={chatContainerRef} className="h-[80vh] bg-[url('../public/d-img.jpg')] overflow-y-auto p-4">
