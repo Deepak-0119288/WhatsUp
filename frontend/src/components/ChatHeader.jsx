@@ -13,7 +13,7 @@ const ChatHeader = () => {
   const [typingUsers, setTypingUsers] = useState([]);
 
   useEffect(() => {
-    if (!socket || !selectedChat) return; 
+    if (!socket || !selectedChat) return;
 
     const handleTyping = ({ chatId, senderId, username, isGroup }) => {
       const expectedChatId = selectedChat._id;
